@@ -1,8 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // To parse this JSON data, do
 //
 //     final weatherForcastModel = weatherForcastModelFromJson(jsonString);
 
 import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 
 WeatherForcastModel weatherForcastModelFromJson(String str) =>
     WeatherForcastModel.fromJson(json.decode(str));
@@ -46,6 +49,26 @@ class WeatherForcastModel {
             : List<dynamic>.from(list!.map((x) => x.toJson())),
         "city": city?.toJson(),
       };
+
+  @override
+  bool operator ==(covariant WeatherForcastModel other) {
+    if (identical(this, other)) return true;
+
+    return other.cod == cod &&
+        other.message == message &&
+        other.cnt == cnt &&
+        listEquals(other.list, list) &&
+        other.city == city;
+  }
+
+  @override
+  int get hashCode {
+    return cod.hashCode ^
+        message.hashCode ^
+        cnt.hashCode ^
+        list.hashCode ^
+        city.hashCode;
+  }
 }
 
 class City {
@@ -90,6 +113,32 @@ class City {
         "sunrise": sunrise,
         "sunset": sunset,
       };
+
+  @override
+  bool operator ==(covariant City other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.name == name &&
+        other.coord == coord &&
+        other.country == country &&
+        other.population == population &&
+        other.timezone == timezone &&
+        other.sunrise == sunrise &&
+        other.sunset == sunset;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        coord.hashCode ^
+        country.hashCode ^
+        population.hashCode ^
+        timezone.hashCode ^
+        sunrise.hashCode ^
+        sunset.hashCode;
+  }
 }
 
 class Coord {
@@ -110,6 +159,16 @@ class Coord {
         "lat": lat,
         "lon": lon,
       };
+
+  @override
+  bool operator ==(covariant Coord other) {
+    if (identical(this, other)) return true;
+
+    return other.lat == lat && other.lon == lon;
+  }
+
+  @override
+  int get hashCode => lat.hashCode ^ lon.hashCode;
 }
 
 class WeatherData {
@@ -163,6 +222,34 @@ class WeatherData {
         "sys": sys?.toJson(),
         "dt_txt": dtTxt?.toIso8601String(),
       };
+
+  @override
+  bool operator ==(covariant WeatherData other) {
+    if (identical(this, other)) return true;
+
+    return other.dt == dt &&
+        other.main == main &&
+        listEquals(other.weather, weather) &&
+        other.clouds == clouds &&
+        other.wind == wind &&
+        other.visibility == visibility &&
+        other.pop == pop &&
+        other.sys == sys &&
+        other.dtTxt == dtTxt;
+  }
+
+  @override
+  int get hashCode {
+    return dt.hashCode ^
+        main.hashCode ^
+        weather.hashCode ^
+        clouds.hashCode ^
+        wind.hashCode ^
+        visibility.hashCode ^
+        pop.hashCode ^
+        sys.hashCode ^
+        dtTxt.hashCode;
+  }
 }
 
 class Clouds {
@@ -179,6 +266,16 @@ class Clouds {
   Map<String, dynamic> toJson() => {
         "all": all,
       };
+
+  @override
+  bool operator ==(covariant Clouds other) {
+    if (identical(this, other)) return true;
+
+    return other.all == all;
+  }
+
+  @override
+  int get hashCode => all.hashCode;
 }
 
 class Main {
@@ -227,6 +324,34 @@ class Main {
         "humidity": humidity,
         "temp_kf": tempKf,
       };
+
+  @override
+  bool operator ==(covariant Main other) {
+    if (identical(this, other)) return true;
+
+    return other.temp == temp &&
+        other.feelsLike == feelsLike &&
+        other.tempMin == tempMin &&
+        other.tempMax == tempMax &&
+        other.pressure == pressure &&
+        other.seaLevel == seaLevel &&
+        other.grndLevel == grndLevel &&
+        other.humidity == humidity &&
+        other.tempKf == tempKf;
+  }
+
+  @override
+  int get hashCode {
+    return temp.hashCode ^
+        feelsLike.hashCode ^
+        tempMin.hashCode ^
+        tempMax.hashCode ^
+        pressure.hashCode ^
+        seaLevel.hashCode ^
+        grndLevel.hashCode ^
+        humidity.hashCode ^
+        tempKf.hashCode;
+  }
 }
 
 class Sys {
@@ -243,6 +368,16 @@ class Sys {
   Map<String, dynamic> toJson() => {
         "pod": pod,
       };
+
+  @override
+  bool operator ==(covariant Sys other) {
+    if (identical(this, other)) return true;
+
+    return other.pod == pod;
+  }
+
+  @override
+  int get hashCode => pod.hashCode;
 }
 
 class Weather {
@@ -271,6 +406,21 @@ class Weather {
         "description": description,
         "icon": icon,
       };
+
+  @override
+  bool operator ==(covariant Weather other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.main == main &&
+        other.description == description &&
+        other.icon == icon;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ main.hashCode ^ description.hashCode ^ icon.hashCode;
+  }
 }
 
 class Wind {

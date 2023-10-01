@@ -13,7 +13,14 @@ class ForcastDetailController extends GetxController {
     if (arguments != null) {
       _weatherDataList.addAll(arguments['forcast_data']);
       _locationName.value = arguments['location_name'] ?? "";
+      if (weatherDataList.isNotEmpty) {
+        _selectedWeatherData(weatherDataList.first);
+      }
     }
+  }
+
+  set newWeatherData(WeatherData val) {
+    _selectedWeatherData(val);
   }
 
   List<WeatherData> get weatherDataList => _weatherDataList;

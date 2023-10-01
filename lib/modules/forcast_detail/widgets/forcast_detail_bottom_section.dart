@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wheather_forcast_app/core/utils/functions/convert_time_stamp_to_dt.dart';
 import 'package:wheather_forcast_app/core/utils/functions/convert_wind_speed.dart';
 import 'package:wheather_forcast_app/core/utils/values/const_colors.dart';
 import 'package:wheather_forcast_app/core/utils/values/const_strings.dart';
 import 'package:wheather_forcast_app/core/utils/values/const_text_styles.dart';
-import 'package:wheather_forcast_app/modules/home/home_controller.dart';
+import 'package:wheather_forcast_app/modules/forcast_detail/forcast_detail_controller.dart';
 import 'package:wheather_forcast_app/modules/home/widgets/grey_divider_widget.dart';
+import 'package:wheather_forcast_app/modules/home/widgets/weather_widget_bottom_section.dart';
 
-class WeatherWidgetBottomSection extends StatefulWidget {
-  const WeatherWidgetBottomSection({super.key});
+class ForcastDetailBottomSection extends StatefulWidget {
+  const ForcastDetailBottomSection({super.key});
 
   @override
-  State<WeatherWidgetBottomSection> createState() =>
-      _WeatherWidgetBottomSectionState();
+  State<ForcastDetailBottomSection> createState() =>
+      _ForcastDetailBottomSectionState();
 }
 
-class _WeatherWidgetBottomSectionState
-    extends State<WeatherWidgetBottomSection> {
-  late final _homeController = Get.find<HomeController>();
-
+class _ForcastDetailBottomSectionState
+    extends State<ForcastDetailBottomSection> {
+  late final _forcastDetailController = Get.find<ForcastDetailController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,8 +45,8 @@ class _WeatherWidgetBottomSectionState
                   WeatherDisplyTile(
                       label: ConstStrings.weather,
                       textWidget: Obx(() {
-                        var weatherList =
-                            _homeController.currentDayWeatherData.weather;
+                        var weatherList = _forcastDetailController
+                            .selectedWeatherData.weather;
                         if (weatherList != null && weatherList.isNotEmpty) {
                           return Text(
                             (weatherList.first.main?.capitalize ?? ""),
@@ -64,7 +63,7 @@ class _WeatherWidgetBottomSectionState
                       label: ConstStrings.humidity,
                       textWidget: Obx(() {
                         return Text(
-                          "${_homeController.currentDayWeatherData.main?.humidity} %",
+                          "${_forcastDetailController.selectedWeatherData.main?.humidity} %",
                           style: context.openSansBold.copyWith(
                               fontSize: 23.sp, color: ConstColors.blackColor),
                         );
@@ -81,7 +80,7 @@ class _WeatherWidgetBottomSectionState
                       label: ConstStrings.wind,
                       textWidget: Obx(() {
                         return Text(
-                          "${metersPerSecondToKilometersPerHour(_homeController.currentDayWeatherData.wind?.speed ?? 0.0).toStringAsFixed(2)} ${ConstStrings.kmh}",
+                          "${metersPerSecondToKilometersPerHour(_forcastDetailController.selectedWeatherData.wind?.speed ?? 0.0).toStringAsFixed(2)} ${ConstStrings.kmh}",
                           style: context.openSansBold.copyWith(
                               fontSize: 23.sp, color: ConstColors.blackColor),
                         );
@@ -93,7 +92,7 @@ class _WeatherWidgetBottomSectionState
                       label: ConstStrings.pressure,
                       textWidget: Obx(() {
                         return Text(
-                          "${_homeController.currentDayWeatherData.main?.pressure} ${ConstStrings.hpa}",
+                          "${_forcastDetailController.selectedWeatherData.main?.pressure} ${ConstStrings.hpa}",
                           style: context.openSansBold.copyWith(
                               fontSize: 23.sp, color: ConstColors.blackColor),
                         );
@@ -101,73 +100,8 @@ class _WeatherWidgetBottomSectionState
                 ],
               ),
             ),
-            const GreyDividerWidget(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                children: [
-                  WeatherDisplyTile(
-                      label: ConstStrings.sunrise,
-                      textWidget: Obx(() {
-                        return Text(
-                          getDateTimeInAmPm(_homeController
-                                  .currentDayWeatherData.sys?.sunrise ??
-                              0),
-                          style: context.openSansBold.copyWith(
-                              fontSize: 23.sp, color: ConstColors.blackColor),
-                        );
-                      })),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  WeatherDisplyTile(
-                      label: ConstStrings.sunset,
-                      textWidget: Obx(() {
-                        return Text(
-                          getDateTimeInAmPm(_homeController
-                                  .currentDayWeatherData.sys?.sunset ??
-                              0),
-                          style: context.openSansBold.copyWith(
-                              fontSize: 23.sp, color: ConstColors.blackColor),
-                        );
-                      })),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20.h + Get.mediaQuery.viewPadding.bottom,
-            )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class WeatherDisplyTile extends StatelessWidget {
-  const WeatherDisplyTile(
-      {super.key, required this.label, required this.textWidget});
-
-  final String label;
-  final Widget textWidget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: context.openSansSemiBold
-                .copyWith(fontSize: 14.sp, color: ConstColors.greyTextColor),
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          textWidget
-        ],
       ),
     );
   }

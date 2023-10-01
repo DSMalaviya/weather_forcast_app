@@ -129,7 +129,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         height: 1),
                   ),
                   Text(
-                    " °C",
+                    ConstStrings.degreeCel,
                     style: context.openSansSemiBold.copyWith(
                         fontSize: 13.sp,
                         color: ConstColors.lightWhiteColor,
@@ -152,7 +152,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         height: 1),
                   ),
                   Text(
-                    " °C",
+                    ConstStrings.degreeCel,
                     style: context.openSansSemiBold.copyWith(
                         fontSize: 5.sp,
                         color: ConstColors.lightWhiteColor,
