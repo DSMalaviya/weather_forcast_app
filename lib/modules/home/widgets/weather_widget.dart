@@ -54,6 +54,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 ),
                 const Spacer(),
                 InkWell(
+                  onTap: _homeController.onSearchTap,
                   child: SvgPicture.asset(
                     IconPath.searchIcon,
                     height: 18.h,

@@ -12,4 +12,8 @@ class ConstStrings {
   static const String degreeCel = " °C";
   static const String hpa = "hPa";
   static const String kmh = "km/h";
+  static const String pleaseEnterCityName = "Please enter city name";
+  static const String ok = "Ok";
+  static const String cancel = "Cancel";
+  static const String cityName = "city name";
 }

@@ -30,8 +30,9 @@ class MyApp extends StatelessWidget {
           initialRoute: HomeScreen.routeName,
           locale: Get.deviceLocale,
           fallbackLocale: const Locale('en', "US"),
-          theme: ThemeData.light()
-              .copyWith(scaffoldBackgroundColor: ConstColors.whiteColor),
+          theme: ThemeData.light().copyWith(
+            scaffoldBackgroundColor: ConstColors.whiteColor,
+          ),
         );
       },
     );
